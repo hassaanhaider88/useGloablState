@@ -1,0 +1,18 @@
+{
+  "name": "@hmk_codeweb88/useglobalstate",
+  "version": "1.0.1",
+  "main": "src/index.js",
+  "description": "Super minimal global state hook for React without context.",
+  "author": "Hassaan Haider",
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "global state",
+    "custom hook",
+    "redux",
+    "state management"
+  ],
+  "peerDependencies": {
+    "react": ">=17.0.0"
+  }
+}
