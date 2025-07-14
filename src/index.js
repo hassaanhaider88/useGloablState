@@ -2,22 +2,27 @@ import { useState, useEffect } from "react";
 
 const globalStore = new Map();
 
-export function useGlobalState(key, initialValue) {
-  if (
-    globalStore.has(key) &&
-    initialValue !== undefined &&
-    globalStore.get(key).value !== initialValue
-  ) {
-    if (process.env.NODE_ENV !== "production") {
-      console.warn(
-        `[useGlobalState] Key "${key}" already exists. The initialValue (${initialValue}) will be ignored.`
-      );
+export function useGlobalState(key, initialValue, options = {}) {
+  const { persist = false } = options;
+
+  // Get value from localStorage if persist is true
+  const getInitial = () => {
+    if (persist) {
+      const stored = localStorage.getItem(key);
+      if (stored !== null) {
+        try {
+          return JSON.parse(stored);
+        } catch (e) {
+          console.warn(`[useGlobalState] Failed to parse stored value for key "${key}".`);
+        }
+      }
     }
-  }
+    return initialValue;
+  };
 
   if (!globalStore.has(key)) {
     globalStore.set(key, {
-      value: initialValue,
+      value: getInitial(),
       listeners: new Set(),
     });
   }
@@ -26,7 +31,7 @@ export function useGlobalState(key, initialValue) {
 
   useEffect(() => {
     const store = globalStore.get(key);
-    const update = () => forceRender((n) => n + 1);
+    const update = () => forceRender(n => n + 1);
     store.listeners.add(update);
 
     return () => {
@@ -37,8 +42,18 @@ export function useGlobalState(key, initialValue) {
   const store = globalStore.get(key);
 
   const setValue = (val) => {
-    store.value = typeof val === "function" ? val(store.value) : val;
-    store.listeners.forEach((listener) => listener());
+    const newValue = typeof val === "function" ? val(store.value) : val;
+    store.value = newValue;
+
+    if (persist) {
+      try {
+        localStorage.setItem(key, JSON.stringify(newValue));
+      } catch (e) {
+        console.error(`[useGlobalState] Failed to save key "${key}" to localStorage`, e);
+      }
+    }
+
+    store.listeners.forEach(listener => listener());
   };
 
   return [store.value, setValue];

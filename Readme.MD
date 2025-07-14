@@ -1,16 +1,18 @@
 ## 🌍 useGlobalState — React Global State in 1 Line
 
-> Zero-config, lightweight, and blazing fast global state management for React using hooks. No context. No boilerplate. No Redux.
+> Zero-config, lightweight, and blazing fast global state management for React using hooks.  
+> No context. No boilerplate. No Redux. Now with optional localStorage persistence!
 
 ---
 
 ## 🚀 Why useGlobalState?
 
-✅ **No setup required**  
-✅ **Share state between components instantly**  
-✅ **Works without Context API**  
-✅ **Only 1 import to rule them all**  
-✅ **Less than 1KB gzipped**
+✅ No setup required  
+✅ Share state between components instantly  
+✅ Works without Context API  
+✅ Only 1 import to rule them all  
+✅ Less than 1KB gzipped  
+✅ Now supports localStorage persistence!
 
 ---
 
@@ -69,6 +71,21 @@ function ComponentB() {
 
 ---
 
+## 💾 Persistent Global State (localStorage)
+
+Want your value to survive page refresh? Add `{ persist: true }`:
+
+```js
+const [theme, setTheme] = useGlobalState("theme", "light", { persist: true });
+
+<button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>Toggle Theme</button>
+```
+
+✔️ Automatically saves and restores from `localStorage`.
+✔️ Perfect for theme, language, or login state.
+
+---
+
 ## 🧩 Full Example (Copy-Paste Ready)
 
 ```jsx
@@ -92,7 +109,7 @@ export default function App() {
 import { useGlobalState } from "@hmk_codeweb88/useglobalstate";
 
 export default function ComponentA() {
-  const [value, setValue] = useGlobalState("sharedMessage", "Hello from A!");
+  const [value, setValue] = useGlobalState("sharedMessage", "Hello from A!", { persist: true });
 
   return (
     <div>
@@ -140,33 +157,35 @@ Internally, this library uses:
 * A global `Map` to store key-value pairs
 * `Set` of listener functions to trigger re-renders
 * React `useEffect` + `useState` to subscribe/unsubscribe to changes
+* Optionally, `localStorage` for persistence
 
-That’s it. No provider, no context.
+That’s it. No Provider. No Context. No headaches.
 
 ---
 
-## ❓FAQ
+## ❓ FAQ
 
-### Q: Do I need a context provider?
+**Q: Do I need a Context Provider?**
+A: Nope. It works completely without React context.
 
-**A:** Nope. It works completely without React context.
+**Q: Is it reactive? Will it update automatically?**
+A: Yes! Any component using the same key will auto-update.
 
-### Q: Is it reactive? Will it update automatically?
+**Q: What happens on page refresh?**
+A: If `persist: true` is enabled, it restores value from `localStorage`.
 
-**A:** Yes! Any component using `useGlobalState` will re-render on change.
-
-### Q: What happens if I access the same key in 10 components?
-
-**A:** All 10 stay in sync, just like magic.
+**Q: What if I access the same key in 10 components?**
+A: All 10 components stay in sync — automatically.
 
 ---
 
 ## 🧪 Roadmap
 
 * [x] Basic key-value global store
+* [x] Persistence via localStorage
 * [ ] Devtools logging
-* [ ] Persistence via localStorage
 * [ ] TypeScript support
+* [ ] Custom reset/clear method
 
 ---
 
