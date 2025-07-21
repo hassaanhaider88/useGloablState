@@ -6,11 +6,15 @@
   "author": "Hassaan Haider",
   "license": "MIT",
   "keywords": [
-    "react",
     "global state",
+    "react state",
+    "useGlobalState",
+    "react hook",
+    "localStorage",
+    "lightweight state",
     "custom hook",
-    "redux",
-    "state management"
+    "useContext",
+    "Hassaan Haider"
   ],
   "peerDependencies": {
     "react": ">=17.0.0"

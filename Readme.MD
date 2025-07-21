@@ -16,6 +16,9 @@
 
 ---
 
+## Live Demo
+![Counter Demo](https://ik.imagekit.io/hassaan/useGlobalState_TpqFg4Gc0)
+
 ## 📦 Installation
 
 ```bash
@@ -24,7 +27,7 @@ npm install @hmk_codeweb88/useglobalstate
 
 # OR using yarn
 yarn add @hmk_codeweb88/useglobalstate
-````
+```
 
 ---
 
@@ -78,11 +81,13 @@ Want your value to survive page refresh? Add `{ persist: true }`:
 ```js
 const [theme, setTheme] = useGlobalState("theme", "light", { persist: true });
 
-<button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>Toggle Theme</button>
+<button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
+  Toggle Theme
+</button>;
 ```
 
 ✔️ Automatically saves and restores from `localStorage`.
-✔️ Perfect for theme, language, or login state.
+✔️Perfect for saving theme, language, or user preferences.
 
 ---
 
@@ -109,7 +114,9 @@ export default function App() {
 import { useGlobalState } from "@hmk_codeweb88/useglobalstate";
 
 export default function ComponentA() {
-  const [value, setValue] = useGlobalState("sharedMessage", "Hello from A!", { persist: true });
+  const [value, setValue] = useGlobalState("sharedMessage", "Hello from A!", {
+    persist: true,
+  });
 
   return (
     <div>
@@ -126,7 +133,7 @@ import { useGlobalState } from "@hmk_codeweb88/useglobalstate";
 
 export default function ComponentB() {
   const [value] = useGlobalState("sharedMessage");
-
+  // const [value, setValue] = useGlobalState("sharedMessage", "", { persist: true }); if you want to update the value of count and also save it into localStorage permanently You must pass { persist: true } in any component where you want to update and persist the value.(Just accessing it without setValue doesn’t require it.) then you can use setValue to update the value in localStorage.
   return (
     <div>
       <h2>Component B</h2>
@@ -145,7 +152,7 @@ export default function ComponentB() {
 ```js
 const [count, setCount] = useGlobalState("count", 0);
 
-setCount(prev => prev + 5); // Works like useState
+setCount((prev) => prev + 5); // Works like useState
 ```
 
 ---
@@ -154,10 +161,10 @@ setCount(prev => prev + 5); // Works like useState
 
 Internally, this library uses:
 
-* A global `Map` to store key-value pairs
-* `Set` of listener functions to trigger re-renders
-* React `useEffect` + `useState` to subscribe/unsubscribe to changes
-* Optionally, `localStorage` for persistence
+- A global `Map` to store key-value pairs
+- `Set` of listener functions to trigger re-renders
+- React `useEffect` + `useState` to subscribe/unsubscribe to changes
+- Optionally, `localStorage` for persistence
 
 That’s it. No Provider. No Context. No headaches.
 
@@ -181,13 +188,27 @@ A: All 10 components stay in sync — automatically.
 
 ## 🧪 Roadmap
 
-* [x] Basic key-value global store
-* [x] Persistence via localStorage
-* [ ] Devtools logging
-* [ ] TypeScript support
-* [ ] Custom reset/clear method
+- [x] Basic key-value global store
+- [x] Persistence via localStorage
+- [ ] Devtools logging
+- [ ] TypeScript support
+- [ ] Custom reset/clear method
 
 ---
+
+##  🙏 GitHub Repe
+``` 
+Link this idea please give star ⭐ on [GitHub](https://github.com/hassaanhaider88/useGloablState)
+
+```
+
+## 🛡️ 5. Add a “Security Tip” for localStorage
+
+### This is good practice:
+```
+⚠️ Security note: Data saved via localStorage is visible in the browser and should not be used to store sensitive user info like tokens or passwords.
+```
+
 
 ## 🧑‍💻 Author
 

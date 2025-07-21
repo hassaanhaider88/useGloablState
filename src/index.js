@@ -58,3 +58,5 @@ export function useGlobalState(key, initialValue, options = {}) {
 
   return [store.value, setValue];
 }
+
+
