@@ -1,6 +1,6 @@
 {
   "name": "@hmk_codeweb88/useglobalstate",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "main": "src/index.js",
   "description": "Super minimal global state hook for React without context.",
   "author": "Hassaan Haider",
